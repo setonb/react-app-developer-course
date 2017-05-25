@@ -1,3 +1,6 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+
 var GreeterForm = React.createClass({
   onFormSubmit: function(e) {
     e.preventDefault();
