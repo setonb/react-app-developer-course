@@ -1,5 +1,22 @@
+var webpack = require('webpack'); // in order to acces the utilities
+
 module.exports = {
-  entry: './app/app.jsx',
+  entry: [
+    'script!jquery/dist/jquery.min.js', // script! is needed before the files because they are not "modules" but regular scripts
+    'script!foundation-sites/dist/js/foundation.min.js', // script! is needed before the files because they are not "modules" but regular scripts
+    './app/app.jsx'
+  ],
+  externals: {
+    // This allows "global variables" e.g. Foundation needs access to jQuery to run
+    jquery: 'jQuery'
+  },
+  plugins: [
+    // Scans js for variables ($, jQuery) and if not found, ports them to use the package jquery
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery'
+    })
+  ],
   output: {
     path: __dirname, // allows us to say current directory
     filename: './public/bundle.js'
