@@ -8,8 +8,8 @@ const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?app
 
 module.exports = {
   getTemp: function(location) {
-    var locationName = (location.indexOf(',') !== -1) ? location.split(',')[0] : location;
-    var encodedLocation = (locationName) ? encodeURIComponent(locationName) : '';
+    // var locationName = (location.indexOf(',') !== -1) ? location.split(',')[0] : location;
+    var encodedLocation = (location) ? encodeURIComponent(location) : '';
     // var locationId = cityJson.find(function(object){
     //   return object["name"].toLowerCase() === location.toLowerCase();
     // });
