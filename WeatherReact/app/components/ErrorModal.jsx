@@ -8,7 +8,7 @@ var ErrorModal = React.createClass({
   },
   propTypes: {
     title: React.PropTypes.String,
-    message: React.PropTypes.String.isRequired
+    message: React.PropTypes.String
   },
   componentDidMount: function() {
     var modal = new Foundation.Reveal($('#error-modal'));
