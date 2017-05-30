@@ -14,7 +14,7 @@ var React = require('react');
 var About = (props) => {
   return (
     <div>
-      <h1 className="text-center">About App</h1>
+      <h1 className="text-center page-title">About App</h1>
       <p>This is a small app written in React/WebPack.  It uses the API from <a href="http://www.OpenWeatherMap.org" target="_blank">OpenWeatherMap.org</a>.  Please be kind in your use of the API.</p>
     </div>
   );

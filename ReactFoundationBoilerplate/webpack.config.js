@@ -24,7 +24,6 @@ module.exports = {
   resolve: {
     root: __dirname, // available in node.js ( no funny business )
     alias: {  // Allows us to just reference the name instead of the directory
-      OpenWeatherMap: 'app/api/OpenWeatherMap.jsx',
       ApplicationStyles: 'app/styles/app.scss'
     },
     extensions: ['', '.js', '.jsx']

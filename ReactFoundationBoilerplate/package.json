@@ -1,7 +1,7 @@
 {
-  "name": "weather-react",
+  "name": "react-foundation-boilerplate",
   "version": "1.0.0",
-  "description": "Simple React Weather App with WebPack",
+  "description": "Simple React Boilerplate with WebPack and Foundation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

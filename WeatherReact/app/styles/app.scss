@@ -1,0 +1,11 @@
+$heading-color: #555;
+
+.page-title {
+  color: $heading-color;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+input[type="search"] {
+  box-shadow: none;
+}
