@@ -1,0 +1,15 @@
+.top-bar {
+  background: $background-dark;
+  color: $text-light;
+  ul {
+    background: inherit;
+  }
+  .menu {
+    .menu-text {
+      a {
+        display: inline-block;
+        padding: 0;
+      }
+    }
+  }
+}
