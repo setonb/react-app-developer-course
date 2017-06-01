@@ -1,0 +1,16 @@
+.clock {
+  margin: 100px auto;
+  background: $primary;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 150px;
+  border: 2px solid darken($primary, 25%);
+  .clock-text {
+    text-align: center;
+    font-size: 4rem;
+    color: $text-light;
+  }
+}

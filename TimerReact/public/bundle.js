@@ -109,11 +109,11 @@
 	var Countdown = __webpack_require__(232);
 
 	// Load Foundation
-	__webpack_require__(233); // css! is needed before the files because they are not "modules"
+	__webpack_require__(234); // css! is needed before the files because they are not "modules"
 	$(document).foundation();
 
 	// Require Styles
-	__webpack_require__(238);
+	__webpack_require__(239);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -25611,6 +25611,7 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
+	var Clock = __webpack_require__(233);
 
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
@@ -25619,7 +25620,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      'Countdown!'
+	      React.createElement(Clock, { totalSeconds: 129 })
 	    );
 	  }
 	});
@@ -25630,10 +25631,52 @@
 /* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var Clock = React.createClass({
+	  displayName: 'Clock',
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      totalSeconds: 0
+	    };
+	  },
+	  propTypes: {
+	    totalSeconds: React.PropTypes.number
+	  },
+	  formatSeconds: function formatSeconds(totalSeconds) {
+	    var seconds = totalSeconds % 60 > 9 ? totalSeconds % 60 : '0' + totalSeconds % 60;
+	    var minutes = Math.floor(totalSeconds / 60) > 9 ? Math.floor(totalSeconds / 60) : '0' + Math.floor(totalSeconds / 60);
+
+	    return minutes + ':' + seconds;
+	  },
+	  render: function render() {
+	    var totalSeconds = this.props.totalSeconds;
+
+	    return React.createElement(
+	      'div',
+	      { className: 'clock' },
+	      React.createElement(
+	        'span',
+	        { className: 'clock-text' },
+	        this.formatSeconds(totalSeconds)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Clock;
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(234);
+	var content = __webpack_require__(235);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -25641,7 +25684,7 @@
 	var options = {}
 	options.transform = transform
 	// add the styles to the DOM
-	var update = __webpack_require__(236)(content, options);
+	var update = __webpack_require__(237)(content, options);
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25658,10 +25701,10 @@
 	}
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(235)(undefined);
+	exports = module.exports = __webpack_require__(236)(undefined);
 	// imports
 
 
@@ -25672,7 +25715,7 @@
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports) {
 
 	/*
@@ -25754,7 +25797,7 @@
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -25800,7 +25843,7 @@
 	var	singletonCounter = 0;
 	var	stylesInsertedAtTop = [];
 
-	var	fixUrls = __webpack_require__(237);
+	var	fixUrls = __webpack_require__(238);
 
 	module.exports = function(list, options) {
 		if (false) {
@@ -26113,7 +26156,7 @@
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports) {
 
 	
@@ -26208,13 +26251,13 @@
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(239);
+	var content = __webpack_require__(240);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -26222,7 +26265,7 @@
 	var options = {}
 	options.transform = transform
 	// add the styles to the DOM
-	var update = __webpack_require__(236)(content, options);
+	var update = __webpack_require__(237)(content, options);
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26239,15 +26282,15 @@
 	}
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(235)(undefined);
+	exports = module.exports = __webpack_require__(236)(undefined);
 	// imports
 
 
 	// module
-	exports.push([module.id, "html, body {\n  margin: 0;\n  padding: 0;\n  background: #f5f5f5; }\n\n.top-bar {\n  background: #333;\n  color: #f5f5f5; }\n  .top-bar ul {\n    background: inherit; }\n  .top-bar .menu .menu-text a {\n    display: inline-block;\n    padding: 0; }\n  .top-bar .active {\n    font-weight: bold; }\n", ""]);
+	exports.push([module.id, "html, body {\n  margin: 0;\n  padding: 0;\n  background: #f5f5f5; }\n\n.top-bar {\n  background: #333;\n  color: #f5f5f5; }\n  .top-bar ul {\n    background: inherit; }\n  .top-bar .menu .menu-text a {\n    display: inline-block;\n    padding: 0; }\n  .top-bar .active {\n    font-weight: bold; }\n\n.clock {\n  margin: 100px auto;\n  background: #50A6C2;\n  width: 300px;\n  height: 300px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 150px;\n  border: 2px solid #265b6d; }\n  .clock .clock-text {\n    text-align: center;\n    font-size: 4rem;\n    color: #f5f5f5; }\n", ""]);
 
 	// exports
 
