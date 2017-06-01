@@ -25500,8 +25500,12 @@
 	    React.createElement(Nav, null),
 	    React.createElement(
 	      'div',
-	      null,
-	      props.children
+	      { className: 'row' },
+	      React.createElement(
+	        'div',
+	        { className: 'column small-centered medium-6 large-4' },
+	        props.children
+	      )
 	    )
 	  );
 	};
@@ -25612,15 +25616,29 @@
 
 	var React = __webpack_require__(8);
 	var Clock = __webpack_require__(233);
+	var CountdownForm = __webpack_require__(241);
 
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      count: 0
+	    };
+	  },
+	  handleSetCountdown: function handleSetCountdown(seconds) {
+	    this.setState({
+	      count: seconds
+	    });
+	  },
 	  render: function render() {
+	    var count = this.state.count;
+
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Clock, { totalSeconds: 129 })
+	      React.createElement(Clock, { totalSeconds: count }),
+	      React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown })
 	    );
 	  }
 	});
@@ -26294,6 +26312,39 @@
 
 	// exports
 
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var CountdownForm = React.createClass({
+	  displayName: 'CountdownForm',
+
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+
+	    var seconds = this.refs.seconds.value;
+
+	    if (seconds.length > 0 && seconds.match(/^[0-9]*$/)) {
+	      this.refs.seconds.value = '';
+	      this.props.onSetCountdown(parseInt(seconds, 10));
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.onSubmit, className: 'countdown-form' },
+	      React.createElement('input', { type: 'number', ref: 'seconds', className: '', placeholder: 'Enter time in seconds' }),
+	      React.createElement('input', { type: 'submit', value: 'Start', className: 'button expanded' })
+	    );
+	  }
+	});
+
+	module.exports = CountdownForm;
 
 /***/ })
 /******/ ]);
