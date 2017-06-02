@@ -109,11 +109,11 @@
 	var Countdown = __webpack_require__(232);
 
 	// Load Foundation
-	__webpack_require__(234); // css! is needed before the files because they are not "modules"
+	__webpack_require__(235); // css! is needed before the files because they are not "modules"
 	$(document).foundation();
 
 	// Require Styles
-	__webpack_require__(239);
+	__webpack_require__(240);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -25616,19 +25616,41 @@
 
 	var React = __webpack_require__(8);
 	var Clock = __webpack_require__(233);
-	var CountdownForm = __webpack_require__(241);
+	var CountdownForm = __webpack_require__(234);
 
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      count: 0
+	      count: 0,
+	      countdownStatus: 'stopped'
 	    };
+	  },
+	  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	    if (this.state.countdownStatus !== prevState.countdownStatus) {
+	      switch (this.state.countdownStatus) {
+	        case 'started':
+	          this.startTimer();
+	          break;
+	      }
+	    }
+	  },
+
+	  startTimer: function startTimer() {
+	    var _this = this;
+
+	    this.timer = setInterval(function () {
+	      var newCount = _this.state.count - 1;
+	      _this.setState({
+	        count: newCount >= 0 ? newCount : 0
+	      });
+	    }, 1000);
 	  },
 	  handleSetCountdown: function handleSetCountdown(seconds) {
 	    this.setState({
-	      count: seconds
+	      count: seconds,
+	      countdownStatus: 'started'
 	    });
 	  },
 	  render: function render() {
@@ -25691,10 +25713,43 @@
 /* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var CountdownForm = React.createClass({
+	  displayName: 'CountdownForm',
+
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+
+	    var seconds = this.refs.seconds.value;
+
+	    if (seconds.length > 0 && seconds.match(/^[0-9]*$/)) {
+	      this.refs.seconds.value = '';
+	      this.props.onSetCountdown(parseInt(seconds, 10));
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.onSubmit, className: 'countdown-form' },
+	      React.createElement('input', { type: 'number', ref: 'seconds', className: '', placeholder: 'Enter time in seconds' }),
+	      React.createElement('input', { type: 'submit', value: 'Start', className: 'button expanded' })
+	    );
+	  }
+	});
+
+	module.exports = CountdownForm;
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(235);
+	var content = __webpack_require__(236);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -25702,7 +25757,7 @@
 	var options = {}
 	options.transform = transform
 	// add the styles to the DOM
-	var update = __webpack_require__(237)(content, options);
+	var update = __webpack_require__(238)(content, options);
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25719,10 +25774,10 @@
 	}
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(236)(undefined);
+	exports = module.exports = __webpack_require__(237)(undefined);
 	// imports
 
 
@@ -25733,7 +25788,7 @@
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports) {
 
 	/*
@@ -25815,7 +25870,7 @@
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -25861,7 +25916,7 @@
 	var	singletonCounter = 0;
 	var	stylesInsertedAtTop = [];
 
-	var	fixUrls = __webpack_require__(238);
+	var	fixUrls = __webpack_require__(239);
 
 	module.exports = function(list, options) {
 		if (false) {
@@ -26174,7 +26229,7 @@
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports) {
 
 	
@@ -26269,13 +26324,13 @@
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(240);
+	var content = __webpack_require__(241);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -26283,7 +26338,7 @@
 	var options = {}
 	options.transform = transform
 	// add the styles to the DOM
-	var update = __webpack_require__(237)(content, options);
+	var update = __webpack_require__(238)(content, options);
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26300,10 +26355,10 @@
 	}
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(236)(undefined);
+	exports = module.exports = __webpack_require__(237)(undefined);
 	// imports
 
 
@@ -26312,39 +26367,6 @@
 
 	// exports
 
-
-/***/ }),
-/* 241 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(8);
-
-	var CountdownForm = React.createClass({
-	  displayName: 'CountdownForm',
-
-	  onSubmit: function onSubmit(e) {
-	    e.preventDefault();
-
-	    var seconds = this.refs.seconds.value;
-
-	    if (seconds.length > 0 && seconds.match(/^[0-9]*$/)) {
-	      this.refs.seconds.value = '';
-	      this.props.onSetCountdown(parseInt(seconds, 10));
-	    }
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'form',
-	      { onSubmit: this.onSubmit, className: 'countdown-form' },
-	      React.createElement('input', { type: 'number', ref: 'seconds', className: '', placeholder: 'Enter time in seconds' }),
-	      React.createElement('input', { type: 'submit', value: 'Start', className: 'button expanded' })
-	    );
-	  }
-	});
-
-	module.exports = CountdownForm;
 
 /***/ })
 /******/ ]);
