@@ -25644,6 +25644,11 @@
 	    }
 	  },
 
+	  componentWillUpdate: function componentWillUpdate(nextProps, nextState) {},
+	  componentWillUnmount: function componentWillUnmount() {
+	    clearInterval(this.timer);
+	    this.timer = undefined;
+	  },
 	  startTimer: function startTimer() {
 	    var _this = this;
 
@@ -25652,6 +25657,11 @@
 	      _this.setState({
 	        count: newCount >= 0 ? newCount : 0
 	      });
+	      if (newCount === 0) {
+	        _this.setState({
+	          countdownStatus: 'stopped'
+	        });
+	      }
 	    }, 1000);
 	  },
 	  handleSetCountdown: function handleSetCountdown(seconds) {
@@ -25786,6 +25796,9 @@
 	    return function () {
 	      _this.props.onStatusChange(newStatus);
 	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	    console.log('componentWillReceiveProps', newProps.countdownStatus);
 	  },
 	  render: function render() {
 	    var _this2 = this;
